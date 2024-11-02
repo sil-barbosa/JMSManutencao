@@ -1,0 +1,133 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1100px;
+    padding: 20px;
+}
+
+.title {
+    background-color: #3A4356;
+    color: white;
+    padding: 30px;
+    font-size: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    text-align: center; 
+    align-content: center;
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+/* Botões de Logout e Adicionar novo Adicionar Administrador */
+.admin {
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+    margin-left: 50px;
+    margin-right: 50px;
+    justify-content: space-between;
+}
+.btn-custom {
+    border-radius: 5px;
+    padding: 10px 10px;
+    border: 0;
+    cursor: pointer;
+    width: 200px;
+}
+
+    .btn-custom:hover {
+        opacity: 0.6;
+    }
+
+@media (max-width: 545px) {
+    .admin {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .btn-custom {
+        width: 150px;
+    }
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-items: center;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px; 
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-sizing: border-box;
+}
+
+    .card:hover {
+        transform: translateY(-10px);
+    }
+
+.card-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Cor dos cards */
+.card.orcamentos {
+    background-color: #e74c3c;
+}
+
+.card.financeiro {
+    background-color: #3498db;
+}
+
+.card.certificacoes {
+    background-color: #2ecc71;
+}
+
+.card.servicos {
+    background-color: #f39c12;
+}
+
+.card.fotos {
+    background-color: #e67e22;
+}
+
+.card.cliente {
+    background-color: #9b59b6;
+}
+
+.card a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}

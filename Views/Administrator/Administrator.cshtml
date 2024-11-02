@@ -1,0 +1,70 @@
+﻿@model jmsmanutencao.ModelsViews.LoginViewModel
+
+@{
+    ViewBag.Title = "Administração";
+}
+<!-- Sucesso ao cadastrar novo Admin-->
+<div class="container">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success text-center" id="success-message">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            if ($('#success-message').length) {
+                setTimeout(function () {
+                    $('#success-message').fadeOut('slow');
+                }, 3000); 
+            }
+        });
+    </script>
+    <div class="title align-items-center">
+        <h1>O QUE VOCÊ DESEJA ACESSAR?</h1>
+    </div>
+    <div class="cards">
+        <div class="card orcamentos">
+            <div class="card-icon"><i class="fas fa-file-invoice"></i></div>
+            <div class="card-title">Orçamentos</div>
+            <a href="@Url.Action("Budget", "Budget")">Acessar</a>
+        </div>
+        <div class="card financeiro">
+            <div class="card-icon"><i class="fas fa-dollar-sign"></i></div>
+            <div class="card-title">Financeiro</div>
+            <a href="@Url.Action("Finance", "Finance")">Acessar</a>
+        </div>
+        <div class="card certificacoes">
+            <div class="card-icon"><i class="fas fa-certificate"></i></div>
+            <div class="card-title">Certificações</div>
+            <a href="@Url.Action("Certificate", "Certificate")">Acessar</a>
+        </div>
+        <div class="card servicos">
+            <div class="card-icon"><i class="fas fa-tools"></i></div>
+            <div class="card-title">Serviços</div>
+            <a href="@Url.Action("Services", "Services")">Acessar</a>
+        </div>
+        <div class="card fotos">
+            <div class="card-icon"><i class="fas fa-camera"></i></div>
+            <div class="card-title">Fotos</div>
+            <a href="@Url.Action("Gallery", "Gallery")">Acessar</a>
+        </div>
+        <div class="card cliente">
+            <div class="card-icon"><i class="fas fa-user"></i></div>
+            <div class="card-title">Cliente</div>
+            <a href="@Url.Action("Client", "Client")" )">Acessar</a>
+        </div>
+    </div>
+    <div class="admin">
+        <form asp-controller="Administrator" asp-action="AddAdmin" method="get" style="display:inline;">
+            <button type="submit" class="text-white btn-custom btn-link" style="text-decoration: none; background-color: rgb(0, 130, 0);">Adicionar Administrador</i></button>
+        </form>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form asp-controller="Administrator" asp-action="Logout" method="post" style="display:inline;">
+                <button type="submit" class="text-white btn-custom btn-link" style="text-decoration: none; background-color: rgb(130, 0, 0);">Sair</button>
+            </form>
+        }
+    </div>
+</div>

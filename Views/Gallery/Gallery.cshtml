@@ -1,0 +1,68 @@
+﻿@model jmsmanutencao.ModelsViews.GalleryViewModel
+
+@{
+    ViewBag.Title = "Galeria de Fotos";
+}
+
+<section id="manage-photos" class="manage-section">
+    <h2>Adicionar Fotos de Serviços</h2>
+    <form asp-action="AddPhoto" asp-controller="Gallery" method="post" enctype="multipart/form-data" class="inline-form">
+        <input type="file" name="foto" required>
+        <input type="text" name="descricao" placeholder="Serviço Realizado" required>
+        <button type="submit" class="add-button">Adicionar</button>
+    </form>
+</section>
+
+<section class="gallery-section">
+    <h2>Galeria de Fotos</h2>
+    <div class="gallery">
+        @if (Model.Imagelist != null && Model.Imagelist.Any())
+        {
+            foreach (var item in Model.Imagelist)
+            {
+                <div class="gallery-item">
+                    <img src="@Url.Content(item.Url)" alt="@item.Text">
+                    <p>@item.Text</p>
+                    <div class="gallery-actions">
+                        <form asp-action="RemovePhoto" asp-controller="Gallery" method="post" class="inline-form">
+                            <input type="hidden" name="fotoId" value="@item.ImageId" />
+                            <button type="submit" class="remove-button">Remover</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Nenhuma foto disponível na galeria.</p>
+        }
+    </div>
+</section>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            var successMessage = '@ViewBag.SuccessMessage';
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso!',
+                    text: successMessage,
+                    confirmButtonText: 'OK'
+                });
+            }
+
+            var errorMessage = '@ViewBag.ErrorMessage';
+            if (errorMessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: errorMessage,
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    </script>
+}

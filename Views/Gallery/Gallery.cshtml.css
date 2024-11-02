@@ -1,0 +1,169 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 0 30px; /* Adiciona espaçamento lateral no corpo da página */
+}
+
+.top-bar {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.back-button, .manage-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.gallery-item img {
+    width: 100%; /* Ajusta a largura da imagem ao tamanho do container */
+    height: 200px; /* Define uma altura fixa */
+    object-fit: cover; /* Mantém o aspecto correto e preenche o container */
+}
+
+.gallery-section, .manage-section {
+    margin: 20px;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.gallery-item {
+    width: 30%;
+    background-color: white;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+    .gallery-item:hover {
+        transform: scale(1.05);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: auto;
+    }
+
+    .gallery-item p {
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+/* Estilo para as ações de edição e remoção */
+.gallery-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 1cm; /* Adiciona 1 cm de espaçamento entre os botões */
+}
+
+.remove-button, .edit-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: opacity 0.2s ease;
+}
+
+.edit-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.remove-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+    .remove-button:hover, .edit-button:hover {
+        opacity: 0.9;
+    }
+
+/* Remover o fundo e moldura da seção de gerenciamento */
+.manage-section {
+    padding: 20px 0; /* Remove o background e reduz o padding */
+}
+
+    .manage-section h3 {
+        margin-bottom: 15px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+/* Adicionar fotos - inputs e espaçamento */
+#manage-photos {
+    max-width: 1000px; /* Define uma largura máxima maior para mais espaço */
+    margin: 0 auto; /* Centraliza o contêiner */
+    padding: 60px 40px; /* Adiciona espaçamento lateral e ao redor da seção */
+    text-align: center; /* Centraliza o título e conteúdo dentro da seção */
+}
+
+.inline-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Garante que os inputs e o botão ocupem mais espaço */
+    gap: 50px; /* Aumenta o espaçamento entre os inputs e o botão */
+    margin-bottom: 60px; /* Espaço inferior para separar de elementos abaixo */
+    text-align: center; /* Centraliza o título e conteúdo dentro da seção */
+}
+
+    .inline-form input[type="file"],
+    .inline-form input[type="text"] {
+        flex: 1; /* Ambos os campos ocupam espaço igual */
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .inline-form input[type="file"] {
+        max-width: 35%; /* Limita a largura do campo de arquivo */
+    }
+
+    .inline-form input[type="text"] {
+        max-width: 55%; /* Limita a largura do campo de texto */
+    }
+
+    .inline-form button {
+        padding: 15px 30px; /* Aumenta o tamanho do botão */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #28a745; /* Cor do botão "Adicionar" */
+        color: white;
+        flex-shrink: 0; /* Evita que o botão encolha */
+    }
+
+        .inline-form button:hover {
+            opacity: 0.9;
+        }
+
+h2, h3 {
+    text-align: center;
+    margin-bottom: 40px; /* Adiciona espaçamento abaixo do título */
+}

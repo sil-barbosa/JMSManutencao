@@ -1,0 +1,67 @@
+﻿@model jmsmanutencao.Models.Service
+
+
+
+    
+
+        <link rel="stylesheet" href="~/css/\Editservices.css" />
+
+        <h2></h2>
+
+        <form asp-action="Edit" method="post">
+
+            <input type="hidden" asp-for="ServiceId" />
+
+            <div class="form-group">
+        <label asp-for="ServiceName">Nome do serviço</label>
+        <input asp-for="ServiceName" class="form-control" />
+        <span asp-validation-for="ServiceName" class="text-danger"></span>
+            </div>
+
+    <div class="form-group">
+        <label asp-for="ClientName">Nome do cliente</label>
+        <input asp-for="ClientName" class="form-control" />
+        <span asp-validation-for="ClientName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber">Nome do serviço</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+            <div class="form-group">
+                <label asp-for="Details">Detalhes do Serviço</label>
+                <textarea asp-for="Details" class="form-control"></textarea>
+                <span asp-validation-for="Details" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Date">Data</label>
+                <input asp-for="Date" class="form-control" type="date" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Value">Valor</label>
+                <input asp-for="Value" class="form-control" type="number" step="0.01" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address">Endereço</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Status"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a asp-action="Services" class="btn btn-secondary">Cancelar</a>
+        </form>
+    
+

@@ -1,0 +1,196 @@
+﻿@model jmsmanutencao.ModelsViews.ContactViewModel
+
+@{
+    ViewBag.Title = "JMS Manutenções";
+}
+
+<link rel="stylesheet" href="~/css/Index.css">
+
+<!DOCTYPE html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="overflow-auto">
+    <div id="notification" class="notification" style="display:@(TempData["ErrorMessage"] != null ? "block" : "none"); background-color:@(TempData["ErrorMessage"] != null ? "red" : "#4CAF50")">
+        <p>@TempData["SuccessMessage"]</p>
+        <p>@TempData["ErrorMessage"]</p>
+    </div>
+    <!-- Script para a notificação de sucesso do email -->
+    <script src="~/js/notification.js"></script>
+
+    <!--Carrosel de Imagens-->
+    <div class="carrosel">
+        <div id="myCarousel" class="carousel slide" w-100 data-bs-ride="carousel">
+        
+            <div class="carousel-inner container-fluid w-100 m-0 p-0">
+                <div class="carousel-item c-item active">
+                    <img src="/images/nicho.png" class="d-block w-100 c-img" alt="Nicho">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Nicho</h5>
+                    </div>
+                </div>
+                <div class="carousel-item c-item">
+                    <img src="/images/playgroundgatos.png" class="d-block w-100 c-img" alt="Playground para Gatos">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Playground para gatos</h5>
+                    </div>
+                </div>
+                <div class="carousel-item c-item">
+                    <img src="/images/SuporteTV.png" class="d-block w-100 c-img" alt="Suporte para TV">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Suporte para TV</h5>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Script para fixar a navbar ao descer página-->
+    <script>
+            // Variável para armazenar a navbar
+        var navbar = document.querySelector(".navbar");
+
+        // Evento de rolagem
+        window.onscroll = function() {
+            if (window.pageYOffset > 1) {
+                navbar.classList.add("fixed-top");
+                navbar.style.backgroundColor = "#3A4356"; // Cor de fundo da navbar fixa
+            } else {
+                navbar.classList.remove("fixed-top");
+                navbar.style.backgroundColor = "#3A4356"; // Remove a cor de fundo original
+            }
+        };
+    </script>
+    <!--QUEM SOMOS-->
+    <section class="aboutUs container-fluid py-5">
+
+        <div class="text-center">
+
+            <div class="row align-items-center justify-content-center mb-3">
+                <div class="col-md-4 text-center my-2 mb-md-0">
+                    <div class="image-container">
+                        <img src="~/images/LogoCompleto.png" class="img-fluid" alt="Logo jmsmanutencao">
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+
+                    <h2 class="my-4">Quem Somos</h2>
+
+                    <p class="introdutionText">
+                        Apresentamos nossa empresa de serviços de manutenção em residências e comércios. Fugimos da burocracia e oferecemos
+                        atendimento rápido e prático para problemas apresentados pelos nossos clientes. Estamos à disposição para realizar
+                        desde a instalação de rede elétrica, fixação de quadros, espelhos e cortinas, até o atendimento de emergências
+                        elétricas e hidráulicas. Nosso atendimento técnico é feito conforme agendamento prévio para o conforto do cliente.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--CERTIFICADOS-->
+
+    <section class="certificates-section">
+        <h2 class="certificates-title">Certificações</h2>
+        <div class="row">
+            @if (Model.Certificates != null && Model.Certificates.Any())
+            {
+                foreach (var certificate in Model.Certificates)
+                {
+                    <div class="col-md-3 mb-4">
+                        <div class="card h-100">
+                            <!-- Adiciona evento de clique para abrir o modal -->
+                            <img src="@certificate.ImageUrl" class="card-img-top" alt="@certificate.CertificateName"
+                                 data-bs-toggle="modal" data-bs-target="#certificateModal"
+                                 onclick="showCertificateModal('@certificate.ImageUrl', '@certificate.CertificateName')" />
+                            <div class="card-body">
+                                <h5 class="card-title">@certificate.CertificateName</h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Nenhum certificado disponível.</p>
+            }
+        </div>
+        <div class="modal fade" id="certificateModal" tabindex="-1" aria-labelledby="certificateModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <img id="modalImage" src="" alt="Certificado Ampliado" class="img-fluid modal-image">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showCertificateModal(imageUrl, certificateName) {
+            // Define a URL da imagem e o alt da imagem no modal
+            const modalImage = document.getElementById("modalImage");
+            modalImage.src = imageUrl;
+            modalImage.alt = certificateName;
+        }
+    </script>
+
+
+    <!--Fale Conosco-->
+    <section id="fale-conosco" class="contact">
+    <h2>Fale Conosco</h2>
+    <p class="contact-description">Precisa de ajuda com pequenos reparos? Consertamos eletrônicos, chuveiros, canos e muito mais. Envie-nos uma mensagem e entraremos em contato rapidamente!</p>
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Nome, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", placeholder = "Digite seu nome..." })
+            <span class="error-message" style="color:red;"></span> <!-- Campo para erro -->
+            @Html.ValidationMessageFor(m => m.Nome, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Digite seu email..." })
+            <span class="error-message" style="color:red;"></span> <!-- Campo para erro -->
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Telefone, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.Telefone, new { @class = "form-control", placeholder = "Digite seu telefone..." })
+            @Html.ValidationMessageFor(m => m.Telefone, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Mensagem, new { @class = "form-label" })
+            @Html.TextAreaFor(m => m.Mensagem, new { @class = "form-control", rows = 5, placeholder = "Descreva o problema..." })
+            <span class="error-message" style="color:red;"></span> <!-- Campo para erro -->
+            @Html.ValidationMessageFor(m => m.Mensagem, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Enviar Email</button>
+        </div>
+    }
+        <script src="/js/contact.js"></script>
+    </section>
+</body>

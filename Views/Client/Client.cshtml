@@ -1,0 +1,175 @@
+@model List<jmsmanutencao.Models.Cliente>
+
+@{
+    ViewBag.Title = "Client";
+}
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div style="color: red; text-align: center;">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .clients {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        margin-top: 20px;
+        text-align: center;
+        background-color: #3A4356;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 10px;
+    }
+
+    input[type="date"], input[type="text"], input[type="number"] {
+        margin-bottom: 20px;
+        padding: 8px;
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 40px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-create, .btn-delete {
+        color: white;
+        font-weight: bold;
+    }
+
+    .btn-create {
+        background-color: green;
+    }
+
+    .btn-delete {
+        background-color: red;
+    }
+
+    .btn-edit {
+        background-color: yellow;
+        color: black;
+        font-weight: bold;
+    }
+
+    .btn-pdf {
+        background-color: blue;
+        color: white;
+        font-weight: bold;
+    }
+
+    .no-data {
+        text-align: center;
+        font-style: italic;
+        color: gray;
+    }
+</style>
+
+<body>
+    <div class="clients">
+        <div>
+            <h1>Clientes</h1>
+
+            <div>
+                <form method="post" asp-action="CriarClient">
+                    <div class="button-container">
+                        <button class="btn btn-create">Novo Cliente</button>
+                    </div>
+                </form>
+                
+                <h2>Clientes Registrados</h2>
+                <form method="post" asp-action="Excluir">
+                    <table id="created-clients">
+                        <thead>
+                            <tr>
+                                <th>Selecionar</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var clientes in Model)
+                                                {
+                                    <tr>
+                                        <td><input type="checkbox" name="selectedBudgets" value="@clientes.ClientId" /></td>
+                                        <td>@clientes.ClientName</td>
+                                        <td>@clientes.Email</td>
+                                        <td>@clientes.PhoneNumber</td>
+                                        <td>
+                                            <a class="btn btn-edit" asp-controller="Client" asp-action="EditClient" asp-route-id="@clientes.ClientId">Editar</a>
+                                            <br />
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8" class="no-data">Nenhum cliente encontrado.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <div class="button-container">
+                        <button type="submit" class="btn btn-delete">Excluir Cliente(s)</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

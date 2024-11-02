@@ -1,0 +1,160 @@
+﻿@model jmsmanutencao.ModelsViews.EarningViewModel;
+@using System.Linq
+
+
+@{
+    ViewBag.Title = "Ganhos";
+}
+
+@if (ViewBag.PageSize == null)
+{
+    ViewBag.PageSize = 5; 
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/css/Finance.css" rel="stylesheet" />
+    <link href="~/css/Earnings.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="finance-wrapper">
+
+        <nav class="sidebar" id="sidebar">
+            <ul class="sidebar-list">
+                <li><a asp-controller="Finance" asp-action="Finance"><i class="fas fa-balance-scale"></i><p>Resumo</p></a></li>
+                <li><a asp-controller="Finance" asp-action="Earnings"><i class="fas fa-chevron-circle-up"></i><p>Ganhos</p></a></li>
+                <li><a asp-controller="Finance" asp-action="Expenditure"><i class="fas fa-chevron-circle-down"></i><p>Despesas</p></a></li>
+            </ul>
+        </nav>
+
+        <main class="finance-container">
+            <h1>Lista de Ganhos</h1>
+            <button id="addGainBtn">Adicionar Pagamento</button>
+
+            <!-- Tabela de Ganhos com Limitação de Itens -->
+            <table class="table-gains">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>
+                            <a href="?sortOrder=@(ViewBag.CurrentSort == "value_asc" ? "value_desc" : "value_asc")">
+                                Valor @(ViewBag.CurrentSort == "value_asc" ? "↑" : "↓")
+                            </a>
+                        </th>
+                        <th>
+                            <a href="?sortOrder=@(ViewBag.CurrentSort == "date_asc" ? "date_desc" : "date_asc")">
+                                Data @(ViewBag.CurrentSort == "date_asc" ? "↑" : "↓")
+                            </a>
+                        </th>
+                        <th class="action-column">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var earning in Model.Earnings)
+                    {
+                        <tr>
+                            <td>@earning.ClientName</td>
+                            <td>@earning.Value.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR"))</td>
+                            <td>@earning.PaymentDate.ToShortDateString()</td>
+                            <td class="action-column">
+                                <button class="editBtn" data-id="@earning.ClientId"><i class="fas fa-edit"></i></button>
+                                <button id="deleteBtn"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Paginação -->
+            <div class="pagination-controls">
+                @if (ViewBag.PageNumber > 1)
+                {
+                    <a href="?sortOrder=@ViewBag.CurrentSort&pageNumber=@ViewBag.PreviousPage&pageSize=@ViewBag.PageSize">Anterior</a>
+                }
+
+                <span>Página @ViewBag.PageNumber de @ViewBag.TotalPages</span>
+
+                @if (ViewBag.PageNumber < ViewBag.TotalPages)
+                {
+                    <a href="?sortOrder=@ViewBag.CurrentSort&pageNumber=@ViewBag.NextPage&pageSize=@ViewBag.PageSize">Próxima</a>
+                }
+            </div>
+
+            <!-- Popup para adicionar novo ganho -->
+            <div id="gainPopup" class="popup">
+                <div class="popup-content">
+                    <span class="close" id="closeGainPopup">&times;</span>
+                    <h2>Adicionar Novo Ganho</h2>
+
+                    <form asp-action="Earnings" method="post" id="gainForm">
+                        <div class="form-group" style="position: relative;">
+                            <label asp-for="ClientId">Nome do Cliente:</label>
+                            <input type="text" class="form-control" id="clientInput" name="ClientName" required autocomplete="off" />
+                            <input type="hidden" id="ClientId" name="ClientId" />
+                            <span asp-validation-for="ClientId" class="text-danger"></span>
+                            <ul class="suggestions-list" id="suggestionsList"></ul>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Value">Valor do Ganho:</label>
+                            <input asp-for="Value" class="form-control" type="number" step="0.01" id="earningsValue" name="Value" required />
+                            <span asp-validation-for="Value" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="PaymentDate">Data do Ganho:</label>
+                            <input asp-for="PaymentDate" class="form-control" type="date" id="earningsDate" value="@(Model.PaymentDate == DateTime.MinValue ? "" : Model.PaymentDate.ToString("yyyy-MM-dd"))" name="PaymentDate" required />
+                            <span asp-validation-for="PaymentDate" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="button-positive">Cadastrar Pagamento</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Popup para editar ganho -->
+            <div id="editPopup" class="popup">
+                <div class="popup-content">
+                    <span class="close" id="closeEditPopup">&times;</span>
+                    <h2>Editar Ganho</h2>
+
+                    <form id="editGainForm">
+                        <input type="hidden" id="EditClientId" name="ClientId" />
+                        <input type="hidden" id="EditEarningId" name="EarningId" />
+
+                        <div class="form-group">
+                            <label for="editEarningsValue">Valor do Ganho:</label>
+                            <input class="form-control" type="number" step="0.01" id="editEarningsValue" name="Value" required />
+                            <span class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editEarningsDate">Data do Ganho:</label>
+                            <input class="form-control" type="date" id="editEarningsDate" name="PaymentDate" required />
+                            <span class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="button-positive">Salvar Alterações</button>
+                    </form>
+                </div>
+            </div>
+            <script src="~/js/earnings.js"></script>
+        </main>
+
+        <nav class="footerbar" id="footerbar">
+            <ul class="footerbar-list">
+                <li><a asp-controller="Finance" asp-action="Finance"><i class="fas fa-balance-scale"></i></a></li>
+                <li><a asp-controller="Finance" asp-action="Earnings"><i class="fas fa-chevron-circle-up"></i></a></li>
+                <li><a asp-controller="Finance" asp-action="Expenditure"><i class="fas fa-chevron-circle-down"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>

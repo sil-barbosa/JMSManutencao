@@ -1,0 +1,189 @@
+@model List<jmsmanutencao.Models.Orcamento>
+
+@{
+    ViewBag.Title = "Orçamento";
+}
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div style="color: red; text-align: center;">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .budget {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        margin-top: 20px;
+        text-align: center;
+        background-color: #3A4356;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 10px;
+    }
+
+    input[type="date"], input[type="text"], input[type="number"] {
+        margin-bottom: 20px;
+        padding: 8px;
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 40px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-create, .btn-delete {
+        color: white;
+        font-weight: bold;
+    }
+
+    .btn-create {
+        background-color: green;
+    }
+
+    .btn-delete {
+        background-color: red;
+    }
+
+    .btn-edit {
+        background-color: yellow;
+        color: black;
+        font-weight: bold;
+    }
+
+    .btn-pdf {
+        background-color: blue;
+        color: white;
+        font-weight: bold;
+    }
+
+    .no-data {
+        text-align: center;
+        font-style: italic;
+        color: gray;
+    }
+</style>
+
+<body>
+    <div class="budget">
+        <div>
+            <h1>Orçamentos</h1>
+
+            <h2>Criar Orçamento</h2>
+            <form method="post" asp-action="Criar">
+                <input type="text" name="NomeCliente" placeholder="Nome" required />
+                <input type="text" name="Endereco" placeholder="Endereço" required />
+                <input type="text" name="CEP" placeholder="CEP" required />
+                <input type="text" name="Telefone" placeholder="Telefone" required />
+                <input type="number" name="ValorOrcamento" placeholder="Valor" required />
+                <input type="text" name="Descricao" placeholder="Descrição do Serviço" required />
+                <button type="submit" class="btn btn-create">Criar Orçamento</button>
+            </form>
+
+            <div>
+                <h2>Orçamentos Criados</h2>
+                <form method="post" asp-action="Excluir">
+                    <table id="created-budgets">
+                        <thead>
+                            <tr>
+                                <th>Selecionar</th>
+                                <th>Nome</th>
+                                <th>Endereço</th>
+                                <th>CEP</th>
+                                <th>Telefone</th>
+                                <th>Valor</th>
+                                <th>Descrição</th>
+                                <th>Data de Criação</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var orcamento in Model)
+                                {
+                                    <tr>
+                                        <td><input type="checkbox" name="selectedBudgets" value="@orcamento.Id" /></td>
+                                        <td>@orcamento.NomeCliente</td>
+                                        <td>@orcamento.Endereco</td>
+                                        <td>@orcamento.CEP</td>
+                                        <td>@orcamento.Telefone</td>
+                                        <td>R$ @orcamento.ValorOrcamento</td>
+                                        <td>@orcamento.Descricao</td>
+                                        <td>@orcamento.DataCriacao.ToString("dd/MM/yyyy HH:mm")</td>
+                                        <td>
+                                            <a class="btn btn-edit" asp-controller="Budget" asp-action="Edit" asp-route-id="@orcamento.Id">Editar</a>
+                                            <a class="btn btn-pdf" asp-controller="Budget" asp-action="GerarPDF" asp-route-id="@orcamento.Id">Gerar PDF</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="9" class="no-data">Nenhum orçamento encontrado.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <div class="button-container">
+                        <button type="submit" class="btn btn-delete">Excluir Orçamento(s)</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,82 @@
+﻿@model jmsmanutencao.ModelsViews.RecoveryEmailViewModel;
+
+@{
+    ViewBag.Title = "Esqueceu a Senha";
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <title>Esqueceu a Senha</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="~/css/RecoveryEmail.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- animação de fundo -->
+    <div class="area">
+        <ul class="locks">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <!-- conteúdo da página -->
+        <div class="forgot-password-container row">
+            <div class="col-lg-6 left-section d-none d-lg-block">
+                <div class="left-section-custom content-left">
+                    <div>
+                        <h1>Esqueceu a Senha...</h1>
+                        <p style="color:#F2B705">JMS Manutenções</p>
+                    </div>
+                    <div class="left-section-img">
+                        <img src="/images/LOGO JMS.png" alt="Logo" class="forgot-password-image-custom" />
+                    </div>
+                </div>
+            </div>
+            <div class="forgot-password-card-custom col-lg-6 col-md-12 right-section">
+                <div class="card-title">
+                    <h2>Redefinir Senha</h2>
+                </div>
+                <div class="card-body">
+                    <p>Informe o seu endereço de e-mail</p>
+
+                    @using (Html.BeginForm("RecoveryEmail", "Administrator", FormMethod.Post)) 
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.UserEmail, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.UserEmail, new { @class = "form-control-custom", placeholder = "Digite seu email..." })
+                            @Html.ValidationMessageFor(m => m.UserEmail, "", new { @class = "text-danger-custom" }) 
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                        {
+                            <div class="alert alert-danger mt-3 text-center">@ViewBag.ErrorMessage</div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <div class="alert alert-success mt-3 text-center">@ViewBag.Message</div>
+                        }
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-custom w-100">Enviar</button> 
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<jmsmanutencao.Models.Service>
+   
+@{
+    ViewBag.Title = "Serviços";
+}
+
+<link rel="stylesheet" href="~/css/\Services.css" />
+
+<div>
+    <h1>Serviços</h1>
+    <div class="container">
+        <div class="service-list">
+            <h2></h2>
+            <ul>
+                @foreach (var service in Model)
+                {
+                    <li>
+                        <a href="@Url.Action("Edit", "Services", new { id = service.ServiceId })"
+                           onclick="selectService(@service.ServiceId)">
+                            @service.ServiceName
+                        </a>
+                        <form asp-action="DeleteConfirmed" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@service.ServiceId" />
+                            <button type="submit" class="btn btn-delete" onclick="return confirm('Tem certeza que deseja excluir este serviço?');">Deletar</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div class="button-container">
+            <a href="@Url.Action("Create", "Services")" class="btn btn-add">Adicionar Serviço</a> <!-- Correção aqui -->
+        </div>
+
+<script>
+    let services = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+
+    // function selectService(id) {
+    //     const service = services.find(s => s.ServiceId === id);
+    //     if (service) {
+    //         document.getElementById("details").innerHTML = `
+    //                 <h3>${service.Address}</h3>
+    //                 <p><strong>Descrição:</strong> ${service.Details}</p>
+    //                 <p><strong>Valor do Serviço:</strong> ${service.Value}</p>
+    //                 <p><strong>Data:</strong> ${new Date(service.Date).toLocaleDateString()}</p>
+    //                 <p><strong>Status:</strong> ${service.Status}</p>
+    //             `;
+    //         document.getElementById("editButton").style.display = "inline";
+    //         document.getElementById("deleteButton").style.display = "inline";
+    //     }
+    // }
+
+    // function deleteService(id) {
+    //     if (confirm("Você tem certeza que deseja deletar este serviço?")) {
+    //         fetch(`/Services/Delete/${id}`, { method: 'POST' })
+    //             .then(response => {
+    //                 if (response.ok) {
+    //                     location.reload(); // Recarregar a página após a exclusão
+    //                 } else {
+    //                     alert("Erro ao deletar o serviço.");
+    //                 }
+    //             })
+    //             .catch(error => console.error("Erro:", error));
+    //     }
+    // }
+</script> 

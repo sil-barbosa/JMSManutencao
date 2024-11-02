@@ -1,0 +1,64 @@
+﻿@model jmsmanutencao.Models.Orcamento
+
+@{
+    ViewBag.Title = "Editar Orçamento";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        text-align: center;
+        background-color: #3A4356;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    input {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .btn {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        background-color: #28a745;
+        color: white;
+    }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+</style>
+
+<h1>Editar Orçamento</h1>
+
+<form method="post" asp-action="Editar">
+    <input type="hidden" asp-for="Id" />
+    <input type="text" asp-for="NomeCliente" placeholder="Nome" required />
+    <input type="text" asp-for="Endereco" placeholder="Endereço" required />
+    <input type="text" asp-for="CEP" placeholder="CEP" required />
+    <input type="text" asp-for="Telefone" placeholder="Telefone" required />
+    <input type="number" asp-for="ValorOrcamento" placeholder="Valor" required />
+    <input type="text" asp-for="Descricao" placeholder="Descrição do Serviço" required /> 
+    <button type="submit" class="btn">Salvar Alterações</button>
+</form>
+
+<a asp-controller="Budget" asp-action="Budget">Voltar para Lista de Orçamentos</a>

@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "NossosService";
+}
+
+
+    <section class="review-section">
+        <h1>Nossos Serviços</h1>
+        <div class="service-grid">
+            <div class="service-card">
+                <img src="encanamento.png" alt="Encanamento">
+                <h2>Encanamento</h2>
+                <p>Instalação e troca de torneiras, kits de banheiro, chuveiros, desentupimento, etc.</p>
+            </div>
+            <div class="service-card">
+                <img src="eletrica.png" alt="Elétrica">
+                <h2>Elétrica</h2>
+                <p>Instalação de tomadas, luminárias, troca de disjuntores, e outros serviços elétricos.</p>
+            </div>
+            <div class="service-card">
+                <img src="limpeza.png" alt="Limpeza">
+                <h2>Limpeza</h2>
+                <p>Limpeza de caixas d'água, caixas de gordura e outros.</p>
+            </div>
+            <div class="service-card">
+                <img src="manutencao.png" alt="Manutenção Geral">
+                <h2>Manutenção em Geral</h2>
+                <p>Fixação de acessórios de cozinha, quadros, nichos, prateleiras, etc.</p>
+            </div>
+        </div>
+
+        <h2>Comentários de Nossos Clientes</h2>
+        <div class="comments-section">
+            <div class="comment-card">
+                <p>"Ótimo serviço, rápido e eficiente!" - <strong>João</strong></p>
+                <span>★★★★★</span>
+            </div>
+            <div class="comment-card">
+                <p>"Fiquei muito satisfeito com o atendimento!" - <strong>Maria</strong></p>
+                <span>★★★★☆</span>
+            </div>
+            <!-- Outros comentários aqui -->
+        </div>
+
+        <h2>Deixe seu comentário!</h2>
+        <form class="review-form">
+            <label for="stars">Como você avalia o atendimento recebido?</label>
+            <div class="stars-rating">
+                <input type="radio" name="star" id="star1" value="1">
+                <label for="star1">★</label>
+                <input type="radio" name="star" id="star2" value="2">
+                <label for="star2">★</label>
+                <input type="radio" name="star" id="star3" value="3">
+                <label for="star3">★</label>
+                <input type="radio" name="star" id="star4" value="4">
+                <label for="star4">★</label>
+                <input type="radio" name="star" id="star5" value="5">
+                <label for="star5">★</label>
+            </div>
+
+            <label for="comment">Deixe seu comentário</label>
+            <textarea id="comment" rows="4" placeholder="Escreva aqui seu comentário..."></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+

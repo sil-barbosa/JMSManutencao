@@ -1,0 +1,50 @@
+﻿html {
+    width: 100vw;
+}
+
+.social-link {
+    margin-right: 10px;
+    font-size: 1.5rem; 
+}
+
+.phone-number {
+    margin-right: 20px;
+}
+
+.whatsapp {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 25px;
+}
+
+/* Estilo do menu */
+.navbar {
+    background-color: #f8f9fa; /* Cor de fundo opcional */
+    z-index: 2;
+}
+
+/* Menu de navegação centralizado e espaçado */
+.navbar-nav {
+    justify-content: space-around;
+    align-content: center;
+}
+
+.nav-item{
+    font-size: 18px;
+}
+
+.custom-toggler {
+    border: none;
+}
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+        color: #fff;
+        background-color: #1b6ec2;
+    }
+
+/* Remove linha branca entre as seções */
+.no-white-gap {
+    border-bottom: none;
+}

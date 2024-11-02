@@ -1,0 +1,125 @@
+﻿@model jmsmanutencao.ModelsViews.CertificateViewModel
+
+@{
+    ViewBag.Title = "Certificados";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/Certificate.css">
+</head>
+
+<!-- Apresentação de Certificados -->
+<section class="gallery-section">
+    <div class="gallery">
+        @if (Model.CertificateList != null && Model.CertificateList.Any())
+        {
+            int modalIndex = 0;
+            foreach (var item in Model.CertificateList)
+            {
+                <div class="certificate-item position-relative">
+                    <!-- Ícones de edição e exclusão sobre a imagem -->
+                    <a href="@Url.Action("EditCertificate", new { id = item.CertificateId })" class="icon edit-icon" data-bs-toggle="tooltip" title="Editar">
+                        <i class="bi bi-pencil-fill"></i> <!-- Ícone de lápis -->
+                    </a>
+                    <a href="@Url.Action("RemoveCertificate", new { id = item.CertificateId })" class="icon delete-icon" data-bs-toggle="tooltip" title="Excluir">
+                        <i class="bi bi-trash-fill"></i> <!-- Ícone de lixeira -->
+                    </a>
+
+                    <!-- A imagem abre um modal específico ao ser clicada -->
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal-@modalIndex">
+                        <img src="@Url.Content(item.ImageUrl)" alt="@item.CertificateName" class="img-thumbnail" />
+                    </a>
+                    <p>@item.CertificateName</p>
+
+                    <!-- Modal individual para cada imagem -->
+                    <div class="modal fade" id="imageModal-@modalIndex" tabindex="-1" aria-labelledby="imageModalLabel-@modalIndex" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-body position-relative d-flex justify-content-center">
+                                    <!-- Ícones também dentro do modal -->
+                                    <a href="@Url.Action("EditCertificate", new { id = item.CertificateId })" class="icon edit-icon-modal" data-bs-toggle="tooltip" title="Editar">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </a>
+                                    <a href="@Url.Action("RemoveCertificate", new { id = item.CertificateId })" class="icon delete-icon-modal" data-bs-toggle="tooltip" title="Excluir">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+                                    <img src="@Url.Content(item.ImageUrl)" class="img-fluid modal-image" alt="@item.CertificateName">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                modalIndex++;
+            }
+        }
+        else
+        {
+            <p>Nenhum certificado disponível.</p>
+        }
+    </div>
+</section>
+
+<!-- Seção de Gerenciamento de Certificados -->
+<section id="manage-certificates" class="manage-section">
+    <h2>Gerenciar Certificados</h2>
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <form asp-action="AddCertificate" asp-controller="Certificate" method="post" enctype="multipart/form-data">
+                <input type="file" name="foto" required>
+                <input type="text" name="certificateName" placeholder="Nome Certificado" required>
+                <input type="text" name="courseCode" placeholder="Código do Curso">
+                <button type="submit" class="add-button">Incluir</button>
+            </form>
+        </div>
+
+        <div class="col-md-4">
+
+            <h3>Editar Certificado</h3>
+            <form asp-action="UpdateCertificate" asp-controller="Certificate" method="post">
+                <select name="certificateId" id="certificateId" required>
+                    <option value="">Selecione um certificado.</option>
+                    @if (Model.CertificateList != null && Model.CertificateList.Any())
+                    {
+                        foreach (var item in Model.CertificateList)
+                        {
+                            <option value="@item.CertificateId">@item.CertificateName</option>
+                        }
+                    }
+                </select>
+
+                <input type="text" name="certificateName" placeholder="Nova Descrição" required />
+                <input type="text" name="courseCode" placeholder="Novo Código do Curso" required />
+
+                <button type="submit" class="edit-button">Editar</button>
+            </form>
+        </div>
+
+
+        <div class="col-md-4">
+            <h3>Remover Certificado</h3>
+            <form asp-action="RemoveCertificate" asp-controller="Certificate" method="post">
+                <select name="certificateId" required>
+                    @if (Model.CertificateList != null && Model.CertificateList.Any())
+                    {
+                        foreach (var item in Model.CertificateList)
+                        {
+                            <option value="@item.CertificateId">@item.CertificateName</option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="">Selecione um certificado.</option>
+                    }
+                </select>
+                <button type="submit" class="remove-button">Remover</button>
+            </form>
+        </div>
+
+        
+
+    </div>
+</section>
+
+

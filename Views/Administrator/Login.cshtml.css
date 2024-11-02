@@ -1,0 +1,19 @@
+﻿.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    padding-top: 20px;
+}
+ .login-card {
+     width: 100%;
+     max-width: 400px;
+     padding: 20px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+ .form-group {
+     margin-bottom: 20px;
+}
+ .mt-5 {
+     margin-top: 1rem !important;
+}

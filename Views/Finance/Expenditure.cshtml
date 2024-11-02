@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Despesas";
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/css/Finance.css" rel="stylesheet" />
+    <link href="~/css/" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Biblioteca Font Awesome para ícones -->
+</head>
+<body>
+    <div class="finance-wrapper">
+
+        <!-- Menu Lateral que vira Footer em telas pequenas -->
+        <nav class="sidebar" id="sidebar">
+            <ul class="sidebar-list">
+                <li><a asp-controller="Finance" asp-action="Finance"><i class="fas fa-balance-scale"></i><p>Resumo</p></a></li>
+                <li><a asp-controller="Finance" asp-action="Earnings"><i class="fas fa-chevron-circle-up"></i><p>Ganhos</p></a></li>
+                <li><a asp-controller="Finance" asp-action="Expenditure"><i class="fas fa-chevron-circle-down"></i><p>Despesas</p></a></li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main class="finance-container">
+
+            <h1>Lista de Gastos Financeiros</h1>
+            <button id="addGainBtn">Adicionar Despesa</button>
+            <ul id="gainList"></ul>
+
+            <!-- Popup para adicionar ganho -->
+            <div id="lossPopup" class="popup">
+
+                <div class="popup-content">
+
+                    <span class="close" id="closePopup">&times;</span>
+                    <h2>Adicionar Nova Despesa</h2>
+
+                    <form id="lossForm">
+                        <div class="form-group">
+                            <label for="clientNameExpenditures">Nome do Cliente:</label>
+                            <input type="text" id="clientNameEarnings" name="clientName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="earningsValue">Valor do Ganho:</label>
+                            <input type="number" id="earningsValue" name="earningsValue" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="earningsDate">Data do Ganho:</label>
+                            <input type="date" id="earningsDate" name="earningsDate" required>
+                        </div>
+
+                        <button type="submit" class="button-positive">Cadastrar Pagamento</button>
+                    </form>
+                </div>
+            </div>
+            <script src="~/js/earnings.js"></script>
+        </main>
+
+        <nav class="footerbar" id="footerbar">
+            <ul class="footerbar-list">
+                <li><a asp-controller="Finance" asp-action="Finance"><i class="fas fa-balance-scale"></i></a></li>
+                <li><a asp-controller="Finance" asp-action="Earnings"><i class="fas fa-chevron-circle-up"></i></a></li>
+                <li><a asp-controller="Finance" asp-action="Expenditure"><i class="fas fa-chevron-circle-down"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>

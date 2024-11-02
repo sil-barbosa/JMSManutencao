@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" href="~/images/LOGO JMS.png" type="image/x-icon" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/jmsmanutencao.styles.css" asp-append-version="true" />
+    <!-- Adicionar Font Awesome para os ícones de redes sociais -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <!-- Navbar com o menu logo abaixo -->
+        <nav class="navbar navbar-expand-lg navbar-light container-fluid" style="background-color: #3A4356;">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <img src="~/images/LOGO JMS.png" alt="Logo jmsmanutencao" style="height:55px;" />
+        </a>
+        <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars fs-1 text-white"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav align-items-center text-center justify-content-center mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="AboutUs" asp-action="Index">Quem Somos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Certificate" asp-action="Index" data-session-id="Certificados">Certificações</a>
+                </li>
+                <li class="nav-item">
+                            <a class="nav-link text-white fs-5" asp-area="" asp-controller="OurService" asp-action="OurService">Serviços</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Photos" asp-action="Index">Fotos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Contact" asp-action="Index">Contato</a>
+                </li>
+                <li class="nav-item">
+                            <a class="nav-link text-size text-white" asp-area="" asp-controller="Administrator" asp-action="Login">Administração</a>
+                </li>
+                    
+            </ul>
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+
+                    <a href="https://www.instagram.com/maridodealugueljms/?igsh=bXc1bWd0NWduOGsz" class="social-link text-white fs-5" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/maridodealuguesljms?mibextid=ZbWKwL" class="social-link text-white fs-5" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+                <span class="phone-number text-white me-3">(31) 97305-8387</span>
+            </div>
+        </div>
+    </div>
+</nav>
+    </header>
+
+
+
+    <div class="container-fluid" style="margin: 0; padding: 0;">
+        <main role="main" class="">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- 
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - jmsmanutencao - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

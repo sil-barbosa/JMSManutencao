@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "Financeiro";
+    var earningDates = @Html.Raw(Json.Serialize(ViewBag.EarningDates));
+    var earningValues = @Html.Raw(Json.Serialize(ViewBag.EarningValues));
+    var expenseValues = @Html.Raw(Json.Serialize(ViewBag.ExpenseValues));
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/css/Finance.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Biblioteca Font Awesome para ícones -->
+    <script src="~/js/finance.js"></script>
+</head>
+<body>
+    <div class="finance-wrapper">
+
+        <!-- Menu Lateral que vira Footer em telas pequenas -->
+        <nav class="sidebar" id="sidebar">
+            <ul class="sidebar-list">
+                <li><a asp-controller="Finance" asp-action="Finance"><i class="fas fa-balance-scale"></i><p>Resumo</p></a></li>
+                <li><a asp-controller="Finance" asp-action="Earnings"><i class="fas fa-chevron-circle-up"></i><p>Ganhos</p></a></li>
+                <li><a asp-controller="Finance" asp-action="Expenditure"><i class="fas fa-chevron-circle-down"></i><p>Despesas</p></a></li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+         <main class="finance-container">
+           
+             <section class="balance-grid">
+                <div id="balance-summary" class="balance item section" style="display: block;">
+                    <h2>Resumo Financeiro</h2>
+                    <p>Total de Ganhos: <strong>R$ @ViewBag.TotalEarnings</strong></p>
+                    <p>Total de Despesas: <strong>R$ @ViewBag.TotalExpenses</strong></p>
+                    <p>Balanço: <strong>R$ @ViewBag.Balance</strong></p>
+                </div>
+
+                <!-- Gráfico de Ganhos e Despesas -->
+                <div id="finance-graph" class="section large-item" style="display: block;">
+                    <div class="graph item">
+                        <h2>Gráfico de Ganhos e Despesas</h2>
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Formulário de Cadastro de Ganhos -->
+                <div id="earnings-form" class="item section" style="display: block;">
+                    <h2>Adicionar Ganhos</h2>
+                    <form id="gainForm">
+                        <div class="form-group">
+                            <label for="clientNameEarnings">Nome do Cliente:</label>
+                            <input type="text" id="clientNameEarnings" name="clientName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="earningsValue">Valor do Ganho:</label>
+                            <input type="number" id="earningsValue" name="earningsValue" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="earningsDate">Data do Ganho:</label>
+                            <input type="date" id="earningsDate" name="earningsDate" required>
+                        </div>
+
+                        <button type="submit" class="button-positive">Cadastrar Ganho</button>
+                    </form>
+                </div>
+
+                <!-- Formulário de Cadastro de Despesas -->
+                <div id="expenses-form" class="item section" style="display: block;">
+                    <h2>Adicionar Despesas</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="clientName">Nome do Cliente:</label> <!-- Novo campo adicionado -->
+                            <input type="text" id="clientNameExpenses" name="clientName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expensesValue">Valor da Despesa:</label>
+                            <input type="number" id="expensesValue" name="expensesValue" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expensesDate">Data da Despesa:</label>
+                            <input type="date" id="expensesDate" name="expensesDate" required>
+                        </div>
+                        <button type="submit" class="button-negative">Cadastrar Despesa</button>
+                    </form>
+                </div>
+            </section>
+
+            <script>
+                const xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+                const yValues = [55, 49, 44, 24, 15];
+                const barColors = ["red", "green", "blue", "orange", "brown"];
+
+                const financeChart = new Chart("financeChart", {
+                    type: "bar",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            backgroundColor: barColors,
+                            data: yValues
+                        }]
+                    },
+                    options: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: "World Wine Production 2018"
+                        }
+                    }
+                });
+            </script>
+
+        </main>
+
+        <nav class="footerbar" id="footerbar">
+            <ul class="footerbar-list">
+                <li><a asp-controller="Finance" asp-action="Finance"><i class="fas fa-balance-scale"></i></a></li>
+                <li><a asp-controller="Finance" asp-action="Earnings"><i class="fas fa-chevron-circle-up"></i></a></li>
+                <li><a asp-controller="Finance" asp-action="Expenditure"><i class="fas fa-chevron-circle-down"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <script>
+        // Variáveis passadas da View para o JavaScript externo
+        var earningDates = @Html.Raw(Json.Serialize(ViewBag.EarningDates));
+        var earningValues = @Html.Raw(Json.Serialize(ViewBag.EarningValues));
+        var expenseValues = @Html.Raw(Json.Serialize(ViewBag.ExpenseValues));
+    </script>
+</body>
+</html>

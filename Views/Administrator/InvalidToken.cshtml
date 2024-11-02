@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Token Inválido";
+}
+<head>
+    <link href="~/css/Login.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<div class="area">
+    <ul class="locks">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <!-- conteúdo da página -->
+    <div class="container" style="margin-top: 90px;">
+        <div class="text-center">
+            <h2 style="color: #F2B705">Token Inválido ou Expirado!!!</h2>
+            <p class="text-white">O link de redefinição de senha que você tentou acessar é inválido ou já expirou.</p>
+            <p class="text-white">Por favor, solicite uma nova redefinição de senha.</p>
+            <a href="@Url.Action("RecoveryEmail", "Administrator")" class="btn btn-custom mt-3">Solicitar Novo Link</a>
+        </div>
+    </div>
+</div>

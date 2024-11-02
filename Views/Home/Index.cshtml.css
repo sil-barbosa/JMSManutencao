@@ -1,0 +1,150 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Notificação de Sucesso de envio de email */
+
+.notification {
+    position: fixed; 
+    top: 100px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background-color: #4CAF50; 
+    color: white; 
+    padding: 15px; 
+    border-radius: 5px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    z-index: 1000; 
+    display: none; 
+    opacity: 1; 
+    transition: opacity 0.5s ease; 
+}
+
+/* Configurando Carrosel */
+
+.container-fluid {
+    width: 100%;
+    max-height: 480px;
+}
+
+.c-img {
+    width: 100%; 
+    height: 500px; 
+    object-fit: cover; 
+    object-position: center; 
+}
+
+@media (max-width: 992px) {
+    .c-img {
+        height: 400px;
+    }
+}
+
+/* Tamanho das imagens do carrossel para telas pequenas */
+@media (max-width: 400px) {
+    .c-img {
+        height: 300px;
+    }
+}
+
+/* Estilos gerais para a seção QUEM SOMOS */
+.aboutUs {
+    max-height: 550px;
+    background-color: #3A4356;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+
+}
+
+.image-container {
+    max-width: 100%;
+    text-align: center;
+}
+
+.introdutionText {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: white;
+    height: 100%;
+}
+
+.aboutUs h2 {
+    color: #F2B705;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .aboutUs {
+        padding: 20px;
+    }
+
+    .introdutionText {
+        font-size: 1rem;
+        overflow: auto;
+    }
+}
+
+/* Fale Conosco */
+
+/* Estilos Fale Conosco */
+.contact {
+    background-color: lightgray;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .contact h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .contact p {
+        text-align: center;
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        max-width: 700px;
+        margin: 0 auto 20px auto;
+    }
+
+.form-group {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+.contact button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .contact button:hover {
+        background-color: #218838;
+    }
+
+
